@@ -18,7 +18,7 @@ import {
 import { Avatar, Upload } from "antd";
 import { UserOutlined, UploadOutlined } from "@ant-design/icons";
 import { EditOutlined, SaveOutlined, CloseOutlined } from "@ant-design/icons";
-import { updateProfileAPI } from "src/services/updateProfileAPI";
+//import { updateProfileAPI } from "src/services/updateProfileAPI";
 // import { OrganizationForm } from "./orgProfile";
 
 const { Text } = Typography;
@@ -91,6 +91,7 @@ export const Profile = () => {
 
   const handleCancel = (resetForm: () => void) => {
     setIsEditable(false);
+    console.log(userDetails.user_avatar);
     resetForm(); // Reset the form values
   };
 
@@ -175,6 +176,14 @@ export const Profile = () => {
           <Divider />
           <div>
             <Row gutter={[16, 8]}>
+              <Col span={24}>
+                <Avatar
+                  src={userDetails?.user_avatar}
+                  size={100}
+                  icon={<UserOutlined />}
+                />
+                <Button>Change Avatar</Button>
+              </Col>
               {/* User ID */}
               <Col {...colLayout}>
                 <AntForm.Item
