@@ -36,7 +36,8 @@ function App() {
                   element={<WorkInstructions />}
                 />
                 <Route path="requests" element={<MyRequests />} />
-                <Route path="profile" element={<Dashboard />} />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="profile" element={<Profile />} />
               </Route>
               <Route path="*" element={<NotFoundPage />} />
             </Routes>

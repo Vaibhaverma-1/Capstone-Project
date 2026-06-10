@@ -113,18 +113,19 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     //   setSelectedKey(String(matchedItem.key));
     // }
 
-    if (routerLocation.pathname === "/assets") {
-      // need to update this and below one in BP code
-      setSelectedKey(String(1));
-    } else if (routerLocation.pathname === "/maintenance-orders") {
-      setSelectedKey(String(2));
-    } else if (routerLocation.pathname === "/work-instructions") {
-      setSelectedKey(String(3));
-    } else if (routerLocation.pathname === "/requests") {
-      setSelectedKey(String(4));
-    } else if (routerLocation.pathname === "/profile") {
-      setSelectedKey(String(5));
-    }
+  if (routerLocation.pathname === "/assets") {
+  setSelectedKey(String(1));
+} else if (routerLocation.pathname === "/maintenance-orders") {
+  setSelectedKey(String(2));
+} else if (routerLocation.pathname === "/work-instructions") {
+  setSelectedKey(String(3));
+} else if (routerLocation.pathname === "/requests") {
+  setSelectedKey(String(4));
+} else if (routerLocation.pathname === "/dashboard") {
+  setSelectedKey(String(4));
+} else if (routerLocation.pathname === "/profile") {
+  setSelectedKey(String(5));
+}
   }, [routerLocation?.pathname, items]);
 
   const handleMenuClick = (e: any) => {
@@ -140,11 +141,11 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       navigate("/work-instructions");
       setSelectedKey(String(3));
     } else if (items[e.key - 1]?.key == "4") {
-      navigate("/requests");
-      setSelectedKey(String(5));
+      navigate("/dashboard");
+      setSelectedKey(String(4));
     } else if (items[e.key - 1]?.key == "5") {
       navigate("/profile");
-      setSelectedKey(String(6));
+      setSelectedKey(String(5));
     }
     setOpenMobileMenu(!openMobileMenu);
     // const navigatePath: string =
