@@ -15,35 +15,37 @@ import Assets from "./components/Assets";
 import MaintenanceOrders from "./components/MaintenanceOrders";
 import WorkInstructions from "./components/WorkInstructions";
 import MyRequests from "./components/MyRequests";
-
+import { App as AntApp } from "antd";
 function App() {
   return (
-    <div className="App">
-      <AppContextProvider>
-        <Router>
-          <ThemeProvider>
-            <Routes>
-              <Route path="/" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route element={<PrivateRoutes />}>
-                <Route path="assets" element={<Assets />} />
-                <Route
-                  path="maintenance-orders"
-                  element={<MaintenanceOrders />}
-                />
-                <Route
-                  path="work-instructions"
-                  element={<WorkInstructions />}
-                />
-                <Route path="requests" element={<MyRequests />} />
-                <Route path="profile" element={<Dashboard />} />
-              </Route>
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </ThemeProvider>
-        </Router>
-      </AppContextProvider>
-    </div>
+    <AntApp>
+      <div className="App">
+        <AppContextProvider>
+          <Router>
+            <ThemeProvider>
+              <Routes>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route element={<PrivateRoutes />}>
+                  <Route path="assets" element={<Assets />} />
+                  <Route
+                    path="maintenance-orders"
+                    element={<MaintenanceOrders />}
+                  />
+                  <Route
+                    path="work-instructions"
+                    element={<WorkInstructions />}
+                  />
+                  <Route path="requests" element={<MyRequests />} />
+                  <Route path="profile" element={<Profile />} />
+                </Route>
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </ThemeProvider>
+          </Router>
+        </AppContextProvider>
+      </div>
+    </AntApp>
   );
 }
 
