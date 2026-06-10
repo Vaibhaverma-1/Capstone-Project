@@ -112,6 +112,13 @@ export const Profile = () => {
 
     if (!file) return;
 
+    const MAX_SIZE = 2 * 1024 * 1024;
+
+    if (file.size > MAX_SIZE) {
+      message.error("Image size must be less than 2MB");
+      return;
+    }
+
     const reader = new FileReader();
 
     reader.onloadend = () => {
