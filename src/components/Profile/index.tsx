@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAppContext } from "src/context/appContext";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
@@ -7,6 +8,7 @@ import {
   App,
   Input,
   Button,
+  Popconfirm,
   Row,
   Col,
   Space,
@@ -54,6 +56,8 @@ const profileSchema = Yup.object({
 });
 
 export const Profile = () => {
+  const navigate = useNavigate();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { userDetails, setUserDetails } = useAppContext(); // Replace with your global state management
   // const [form] = Form.useForm();
   const [isEditable, setIsEditable] = useState(false);
@@ -67,9 +71,9 @@ export const Profile = () => {
   //     });
   //   }
   // }, [userDetails]);
-  const handleEditToggle = () => {
-    setIsEditable(true);
-  };
+  // const handleEditToggle = () => {
+  //   setIsEditable(true);
+  // };
 
   const handleFormSubmit = async (values: any) => {
     try {
@@ -93,6 +97,38 @@ export const Profile = () => {
     setIsEditable(false);
     console.log(userDetails.user_avatar);
     resetForm(); // Reset the form values
+  };
+
+  const handleDeleteAccount = () => {
+    sessionStorage.removeItem("userDetails");
+
+    setUserDetails(null);
+
+    navigate("/");
+    message.success("Profile deleted successfully!");
+  };
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      const base64Image = reader.result as string;
+      console.log(base64Image);
+
+      const updatedUser = {
+        ...userDetails,
+        user_avatar: base64Image,
+      };
+
+      setUserDetails(updatedUser);
+
+      sessionStorage.setItem("userDetails", JSON.stringify(updatedUser));
+    };
+
+    reader.readAsDataURL(file);
   };
 
   const colLayout = isEditable
@@ -142,6 +178,21 @@ export const Profile = () => {
             <Col>
               <Space>
                 {!isEditable && (
+                  <Popconfirm
+                    title="Delete Account"
+                    description="Are you sure you want to delete your account?"
+                    onConfirm={handleDeleteAccount}
+                    okText="Yes"
+                    cancelText="No"
+                    okButtonProps={{ danger: true }}
+                    icon={null}
+                  >
+                    <Button type="primary" danger>
+                      Delete Account
+                    </Button>
+                  </Popconfirm>
+                )}
+                {!isEditable && (
                   <Button
                     icon={<EditOutlined />}
                     type="primary"
@@ -182,7 +233,16 @@ export const Profile = () => {
                   size={100}
                   icon={<UserOutlined />}
                 />
-                <Button>Change Avatar</Button>
+                <input
+                  type="file"
+                  accept="image/*"
+                  hidden
+                  ref={fileInputRef}
+                  onChange={handleImageChange}
+                />
+                <Button onClick={() => fileInputRef.current?.click()}>
+                  Change Avatar
+                </Button>
               </Col>
               {/* User ID */}
               <Col {...colLayout}>
