@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAppContext } from "src/context/appContext";
 import {
   Form,
@@ -14,7 +14,6 @@ import {
 } from "antd";
 import { EditOutlined, SaveOutlined, CloseOutlined } from "@ant-design/icons";
 import { updateProfileAPI } from "src/services/updateProfileAPI";
-// import { OrganizationForm } from "./orgProfile";
 
 const { Text } = Typography;
 
@@ -25,7 +24,6 @@ export const Profile = () => {
   const { Option } = Select;
 
   useEffect(() => {
-    // Pre-fill form with user data when the component mounts
     if (userDetails) {
       form.setFieldsValue({
         ...userDetails,
@@ -40,7 +38,7 @@ export const Profile = () => {
   const handleFormSubmit = async (values: any) => {
     // Simulate API call to update user profile
     console.log("====================", values);
-    updateProfileAPI(values)
+    updateProfileAPI(values);
     message.success("Profile updated successfully!");
     setIsEditable(false);
   };
