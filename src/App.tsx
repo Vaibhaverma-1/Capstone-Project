@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { AppContextProvider } from "./context/appContext";
 import NotFoundPage from "./utils/404";
 import LoginPage from "./components/Login";
+import { App as AntApp } from "antd";
 import ThemeProvider from "./theme/antdTheme";
 import PrivateRoutes from "./protected_routes/ProtectedRoutes";
 import RegisterPage from "./components/Register";
@@ -15,7 +16,7 @@ import Assets from "./components/Assets";
 import MaintenanceOrders from "./components/MaintenanceOrders";
 import WorkInstructions from "./components/WorkInstructions";
 import MyRequests from "./components/MyRequests";
-import { App as AntApp } from "antd";
+
 function App() {
   return (
     <AntApp>
