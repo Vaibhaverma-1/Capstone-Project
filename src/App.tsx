@@ -1,4 +1,3 @@
-import "./App.css";
 import { UserServices } from "./components/UserServices";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { AppContextProvider } from "./context/appContext";
@@ -8,6 +7,7 @@ import { App as AntApp } from "antd";
 import ThemeProvider from "./theme/antdTheme";
 import PrivateRoutes from "./protected_routes/ProtectedRoutes";
 import RegisterPage from "./components/Register";
+import ForgotPasswordPage from "./components/ForgotPassword";
 import { Profile } from "./components/Profile";
 import { Products } from "./components/Products";
 import { Inventory } from "./components/Inventory";
@@ -27,6 +27,10 @@ function App() {
               <Routes>
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route
+                  path="/forgot-password"
+                  element={<ForgotPasswordPage />}
+                />
                 <Route element={<PrivateRoutes />}>
                   <Route path="assets" element={<Assets />} />
                   <Route
