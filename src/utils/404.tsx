@@ -12,29 +12,29 @@ const NotFoundPage: React.FC = () => {
 
     if (userDetails) {
       navigate("/dashboard");
-    }else {
+    } else {
       navigate("/");
     }
   };
 
   return (
     <div className="not-found-container">
-    <div className="not-found-card">
-      <Result
-        status="404"
-        title={notFoundContent.title}
-        subTitle={notFoundContent.subtitle}
-        extra={
-          <Button
-            type="primary"
-            onClick={handleNavigation}
-            aria-label="Go Back"
-          >
-            Go Back
-          </Button>
-        }
-      />
-    </div>
+      <div className="not-found-card">
+        <Result
+          status="404"
+          title={notFoundContent.title}
+          subTitle={notFoundContent.subtitle}
+          extra={
+            <Button
+              type="primary"
+              onClick={handleNavigation}
+              aria-label="Go Back"
+            >
+              Go Back
+            </Button>
+          }
+        />
+      </div>
     </div>
   );
 };

@@ -59,7 +59,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   function generateSideMenuItems(
     label: React.ReactNode,
     key: React.Key,
-    icon?: React.ReactNode
+    icon?: React.ReactNode,
   ) {
     return {
       key,
@@ -84,8 +84,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       generateSideMenuItems(
         service,
         `${index + 1}`,
-        iconMapping[service as Service]
-      )
+        iconMapping[service as Service],
+      ),
     );
 
   const { setIsMobile } = useAppContext();
@@ -101,7 +101,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     };
   }, []);
 
-  useEffect(() => {//refresh when
+  useEffect(() => {
+    //refresh when
     // Determine the selected menu item based on the current URL
     // const currentPath = routerLocation.pathname.toLocaleLowerCase();
     // const matchedItem = items?.find(
@@ -113,19 +114,19 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     //   setSelectedKey(String(matchedItem.key));
     // }
 
-  if (routerLocation.pathname === "/assets") {
-  setSelectedKey(String(6));
-} else if (routerLocation.pathname === "/maintenance-orders") {
-  setSelectedKey(String(1));
-} else if (routerLocation.pathname === "/work-instructions") {
-  setSelectedKey(String(2));
-} else if (routerLocation.pathname === "/requests") {
-  setSelectedKey(String(3));
-} else if (routerLocation.pathname === "/dashboard") {
-  setSelectedKey(String(4));
-} else if (routerLocation.pathname === "/profile") {
-  setSelectedKey(String(5));
-}
+    if (routerLocation.pathname === "/assets") {
+      setSelectedKey(String(6));
+    } else if (routerLocation.pathname === "/maintenance-orders") {
+      setSelectedKey(String(1));
+    } else if (routerLocation.pathname === "/work-instructions") {
+      setSelectedKey(String(2));
+    } else if (routerLocation.pathname === "/requests") {
+      setSelectedKey(String(3));
+    } else if (routerLocation.pathname === "/dashboard") {
+      setSelectedKey(String(4));
+    } else if (routerLocation.pathname === "/profile") {
+      setSelectedKey(String(5));
+    }
   }, [routerLocation?.pathname, items]);
 
   const handleMenuClick = (e: any) => {
@@ -146,8 +147,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     } else if (items[e.key - 1]?.key == "5") {
       navigate("/profile");
       setSelectedKey(String(5));
-    }
-     else if (items[e.key - 1]?.key == "6") {
+    } else if (items[e.key - 1]?.key == "6") {
       navigate("/profile");
       setSelectedKey(String(6));
     }
