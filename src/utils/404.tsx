@@ -1,14 +1,41 @@
-import React from 'react';
-import { Button, Result } from 'antd';
+import React from "react";
+import { Button, Result } from "antd";
+import { useNavigate } from "react-router-dom";
+import "./404.css";
+import { notFoundContent } from "src/stubs/notFoundStub";
 
-const NotFoundPage = () => {
+const NotFoundPage: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (): void => {
+    const userDetails = sessionStorage.getItem("userDetails");
+
+    if (userDetails) {
+      navigate("/dashboard");
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
-    <Result
-    status="404"
-    title="404"
-    subTitle="Sorry, the page you visited does not exist."
-    extra={<Button type="primary" href='/'>Back Home</Button>}
-  />
+    <div className="not-found-container">
+      <div className="not-found-card">
+        <Result
+          status="404"
+          title={notFoundContent.title}
+          subTitle={notFoundContent.subtitle}
+          extra={
+            <Button
+              type="primary"
+              onClick={handleNavigation}
+              aria-label="Go Back"
+            >
+              Go Back
+            </Button>
+          }
+        />
+      </div>
+    </div>
   );
 };
 
