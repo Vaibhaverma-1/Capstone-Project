@@ -114,13 +114,13 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     // }
 
   if (routerLocation.pathname === "/assets") {
-  setSelectedKey(String(1));
+  setSelectedKey(String(6));
 } else if (routerLocation.pathname === "/maintenance-orders") {
-  setSelectedKey(String(2));
+  setSelectedKey(String(1));
 } else if (routerLocation.pathname === "/work-instructions") {
-  setSelectedKey(String(3));
+  setSelectedKey(String(2));
 } else if (routerLocation.pathname === "/requests") {
-  setSelectedKey(String(4));
+  setSelectedKey(String(3));
 } else if (routerLocation.pathname === "/dashboard") {
   setSelectedKey(String(4));
 } else if (routerLocation.pathname === "/profile") {
@@ -132,13 +132,13 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     if (!items) return;
 
     if (items[e.key - 1]?.key == "1") {
-      navigate("/assets");
+      navigate("/maintenance-orders");
       setSelectedKey(String(1));
     } else if (items[e.key - 1]?.key == "2") {
-      navigate("/maintenance-orders");
+      navigate("/work-instructions");
       setSelectedKey(String(2));
     } else if (items[e.key - 1]?.key == "3") {
-      navigate("/work-instructions");
+      navigate("/requests");
       setSelectedKey(String(3));
     } else if (items[e.key - 1]?.key == "4") {
       navigate("/dashboard");
@@ -146,6 +146,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     } else if (items[e.key - 1]?.key == "5") {
       navigate("/profile");
       setSelectedKey(String(5));
+    }
+     else if (items[e.key - 1]?.key == "6") {
+      navigate("/profile");
+      setSelectedKey(String(6));
     }
     setOpenMobileMenu(!openMobileMenu);
     // const navigatePath: string =
