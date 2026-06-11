@@ -1,4 +1,3 @@
-import "./App.css";
 import { UserServices } from "./components/UserServices";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { AppContextProvider } from "./context/appContext";
@@ -7,6 +6,7 @@ import LoginPage from "./components/Login";
 import ThemeProvider from "./theme/antdTheme";
 import PrivateRoutes from "./protected_routes/ProtectedRoutes";
 import RegisterPage from "./components/Register";
+import ForgotPasswordPage from "./components/ForgotPassword";
 import { Profile } from "./components/Profile";
 import { Products } from "./components/Products";
 import { Inventory } from "./components/Inventory";
@@ -23,22 +23,21 @@ function App() {
         <Router>
           <ThemeProvider>
             <Routes>
+              {/* ── Public routes ── */}
               <Route path="/" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
+              {/* ── Protected routes ── */}
               <Route element={<PrivateRoutes />}>
                 <Route path="assets" element={<Assets />} />
-                <Route
-                  path="maintenance-orders"
-                  element={<MaintenanceOrders />}
-                />
-                <Route
-                  path="work-instructions"
-                  element={<WorkInstructions />}
-                />
+                <Route path="maintenance-orders" element={<MaintenanceOrders />} />
+                <Route path="work-instructions" element={<WorkInstructions />} />
                 <Route path="requests" element={<MyRequests />} />
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="profile" element={<Profile />} />
               </Route>
+
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </ThemeProvider>
