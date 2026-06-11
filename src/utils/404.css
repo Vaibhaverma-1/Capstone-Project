@@ -4,13 +4,13 @@
   justify-content: center;
   align-items: center;
   padding: 24px;
-  background-color:#eef8f1;;
+  background-color: #eef8f1;
 }
 
 .not-found-card {
   width: 100%;
   max-width: 700px;
-  background: #ffffff;
+  background: #f4f8f2;
   border-radius: 16px;
   padding: 32px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
