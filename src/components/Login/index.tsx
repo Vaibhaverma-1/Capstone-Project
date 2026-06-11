@@ -29,7 +29,7 @@ export default function LoginPage() {
 
     const encryptedPassword = CryptoJS.AES.encrypt(
       user_password,
-      SECRET_KEY
+      SECRET_KEY,
     ).toString();
 
     const formData = {
@@ -58,7 +58,7 @@ export default function LoginPage() {
         setUserDetails(summaryResponse.userSummary);
         sessionStorage.setItem(
           "userDetails",
-          JSON.stringify(summaryResponse.userSummary)
+          JSON.stringify(summaryResponse.userSummary),
         );
         console.log("res data", summaryResponse.userSummary);
         navigate("assets");
@@ -71,7 +71,7 @@ export default function LoginPage() {
   };
 
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
-    errorInfo
+    errorInfo,
   ) => {
     console.log("Failed:", errorInfo);
   };

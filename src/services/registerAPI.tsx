@@ -33,7 +33,7 @@ export const registerAPI= async (formData: FormFields) => {
       const response = await apiClient("post", Endpoints.SIGN_UP, formData);
       return response.data;
     } catch (error) {
-    //   throw new Error('Error fetching summary:', error);
+      throw new Error('Error registering user');
     }
   }
 

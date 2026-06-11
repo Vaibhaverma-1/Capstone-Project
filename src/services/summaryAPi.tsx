@@ -3,7 +3,7 @@ import Endpoints from "src/api/endpoints";
 
 type sessionId = string;
 
-export const getSummaryAPI= async (sessionId: sessionId) => {
+export const getSummaryAPI = async (sessionId: sessionId) => {
   try {
     const response = await apiClient(
       "get",
@@ -13,10 +13,10 @@ export const getSummaryAPI= async (sessionId: sessionId) => {
         headers: {
           Authorization: `Bearer ${sessionId}`,
         },
-      }
+      },
     );
     return response.data;
   } catch (error) {
-    // throw new Error("Error fetching summary:", error);
+    throw new Error("Error fetching summary");
   }
-  }
+};

@@ -13,5 +13,6 @@ export const loginAPI = async (formData: {
   } catch (error) {
     //Need to add global notification for errors.  TODO
     console.log("----", error);
+    throw new Error("Error logging in");
   }
 };
