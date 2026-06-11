@@ -69,8 +69,8 @@ export default function RegisterPage() {
   const navigate = useNavigate();
 
   const [usernameError, setUsernameError] = useState<string | null>(null);
-  const [emailError, setEmailError]       = useState<string | null>(null);
-  const [phoneError, setPhoneError]       = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
   const [formCurrentStep, setFormCurrentStep] = useState(1);
   const [finalFormFieldsData, setFinalFormFieldsData] = useState<FormFields>({
     user_unique_id: "",
@@ -116,14 +116,14 @@ export default function RegisterPage() {
   const handleUsernameBlur = async (username: string) => {
     if (!username) return;
     if (userStore.usernameExists(username)) {
-      setUsernameError("Username already exists, please select another one");
+      // setUsernameError("Username already exists, please select another one");
       return;
     }
     try {
       const response = await validateUsername(username);
       if (response?.success && response?.usernameValidation) {
         if (response.usernameValidation.exists) {
-          setUsernameError("Username already exists, please select another one");
+          // setUsernameError("Username already exists, please select another one");
         } else {
           setUsernameError(null);
         }
@@ -194,35 +194,37 @@ export default function RegisterPage() {
 
     // Save full registration details to sessionStorage
     userStore.registerUser({
-      user_unique_id:    mergedData.user_unique_id,
-      user_password:     mergedData.user_password,
-      user_first_name:   mergedData.user_first_name,
-      user_middle_name:  mergedData.user_middle_name,
-      user_last_name:    mergedData.user_last_name,
-      user_email:        mergedData.user_email,
-      prefix:            mergedData.prefix,
-      user_phone:        mergedData.user_phone,
-      user_dob:          mergedData.user_dob ? mergedData.user_dob.$d?.toISOString() : "",
-      user_gender:       mergedData.user_gender,
-      user_bio:          mergedData.user_bio,
-      user_img:          mergedData.user_img,
-      user_country:      mergedData.user_country,
-      user_state:        mergedData.user_state,
-      user_city:         mergedData.user_city,
-      user_pincode:      mergedData.user_pincode,
-      user_landmark:     mergedData.user_landmark,
-      user_address:      mergedData.user_address,
-      user_agreement:    mergedData.user_agreement,
-      user_active:       true,
-      user_is_active:    true,
-      user_org_limit:    null,
-      user_verified:     "false",
+      user_unique_id: mergedData.user_unique_id,
+      user_password: mergedData.user_password,
+      user_first_name: mergedData.user_first_name,
+      user_middle_name: mergedData.user_middle_name,
+      user_last_name: mergedData.user_last_name,
+      user_email: mergedData.user_email,
+      prefix: mergedData.prefix,
+      user_phone: mergedData.user_phone,
+      user_dob: mergedData.user_dob
+        ? mergedData.user_dob.$d?.toISOString()
+        : "",
+      user_gender: mergedData.user_gender,
+      user_bio: mergedData.user_bio,
+      user_img: mergedData.user_img,
+      user_country: mergedData.user_country,
+      user_state: mergedData.user_state,
+      user_city: mergedData.user_city,
+      user_pincode: mergedData.user_pincode,
+      user_landmark: mergedData.user_landmark,
+      user_address: mergedData.user_address,
+      user_agreement: mergedData.user_agreement,
+      user_active: true,
+      user_is_active: true,
+      user_org_limit: null,
+      user_verified: "false",
       user_selected_org: null,
       user_created_date: now,
-      user_last_login:   now,
-      registered_at:     now,
+      user_last_login: now,
+      registered_at: now,
       security_question: mergedData.security_question,
-      security_answer:   mergedData.security_answer,
+      security_answer: mergedData.security_answer,
     });
 
     ToastMessage.success("User created successfully! Please login.", 3);
@@ -244,9 +246,13 @@ export default function RegisterPage() {
   const getRegisterActions = () => {
     if (formCurrentStep === 1) {
       return [
-        <StyledButton onClick={() => navigate("/")}>Back to Login</StyledButton>,
+        <StyledButton onClick={() => navigate("/")}>
+          Back to Login
+        </StyledButton>,
         <Form.Item {...tailFormItemLayout}>
-          <StyledButton color="default" variant="text" htmlType="submit">Next</StyledButton>
+          <StyledButton color="default" variant="text" htmlType="submit">
+            Next
+          </StyledButton>
         </Form.Item>,
       ];
     }
@@ -254,23 +260,33 @@ export default function RegisterPage() {
       return [
         <StyledButton onClick={() => setFormCurrentStep(1)}>Back</StyledButton>,
         <Form.Item {...tailFormItemLayout}>
-          <StyledButton variant="text" htmlType="submit">Next</StyledButton>
+          <StyledButton variant="text" htmlType="submit">
+            Next
+          </StyledButton>
         </Form.Item>,
       ];
     }
     if (formCurrentStep === 3) {
       return [
-        <StyledButton type="text" onClick={() => setFormCurrentStep(2)}>Back</StyledButton>,
+        <StyledButton type="text" onClick={() => setFormCurrentStep(2)}>
+          Back
+        </StyledButton>,
         <Form.Item {...tailFormItemLayout}>
-          <StyledButton variant="text" htmlType="submit">Next</StyledButton>
+          <StyledButton variant="text" htmlType="submit">
+            Next
+          </StyledButton>
         </Form.Item>,
       ];
     }
     if (formCurrentStep === 4) {
       return [
-        <StyledButton type="text" onClick={() => setFormCurrentStep(3)}>Back</StyledButton>,
+        <StyledButton type="text" onClick={() => setFormCurrentStep(3)}>
+          Back
+        </StyledButton>,
         <Form.Item {...tailFormItemLayout}>
-          <StyledButton variant="text" htmlType="submit">Submit</StyledButton>
+          <StyledButton variant="text" htmlType="submit">
+            Submit
+          </StyledButton>
         </Form.Item>,
       ];
     }
@@ -298,13 +314,24 @@ export default function RegisterPage() {
               <Form.Item
                 name="user_unique_id"
                 label="User Name"
-                tooltip="Username should be unique"
+                // tooltip="Username should be unique"
                 validateStatus={usernameError ? "error" : ""}
                 help={usernameError}
                 rules={[
-                  { required: true, message: "Please input your username!", whitespace: true },
-                  { min: 3, max: 50, message: "Username must be between 3 and 50 characters" },
-                  { pattern: /^[a-zA-Z0-9]+$/, message: "Username must be alphanumeric" },
+                  {
+                    required: true,
+                    message: "Please input your username!",
+                    whitespace: true,
+                  },
+                  {
+                    min: 3,
+                    max: 50,
+                    message: "Username must be between 3 and 50 characters",
+                  },
+                  {
+                    pattern: /^[a-zA-Z0-9]+$/,
+                    message: "Username must be alphanumeric",
+                  },
                 ]}
               >
                 <Input onBlur={(e) => handleUsernameBlur(e.target.value)} />
@@ -315,9 +342,20 @@ export default function RegisterPage() {
                 label="First Name"
                 tooltip="What do you want us to call you?"
                 rules={[
-                  { required: true, message: "Please input your first name!", whitespace: true },
-                  { min: 2, max: 50, message: "First name must be between 2 and 50 characters" },
-                  { pattern: /^[a-zA-Z]+$/, message: "First name must contain only letters" },
+                  {
+                    required: true,
+                    message: "Please input your first name!",
+                    whitespace: true,
+                  },
+                  {
+                    min: 2,
+                    max: 50,
+                    message: "First name must be between 2 and 50 characters",
+                  },
+                  {
+                    pattern: /^[a-zA-Z]+$/,
+                    message: "First name must contain only letters",
+                  },
                 ]}
               >
                 <Input />
@@ -327,8 +365,14 @@ export default function RegisterPage() {
                 name="user_middle_name"
                 label="Middle Name"
                 rules={[
-                  { max: 50, message: "Middle name cannot exceed 50 characters" },
-                  { pattern: /^[a-zA-Z]*$/, message: "Middle name must contain only letters" },
+                  {
+                    max: 50,
+                    message: "Middle name cannot exceed 50 characters",
+                  },
+                  {
+                    pattern: /^[a-zA-Z]*$/,
+                    message: "Middle name must contain only letters",
+                  },
                 ]}
               >
                 <Input />
@@ -338,9 +382,20 @@ export default function RegisterPage() {
                 name="user_last_name"
                 label="Last Name"
                 rules={[
-                  { required: true, message: "Please input your last name!", whitespace: true },
-                  { min: 2, max: 50, message: "Last name must be between 2 and 50 characters" },
-                  { pattern: /^[a-zA-Z]+$/, message: "Last name must contain only letters" },
+                  {
+                    required: true,
+                    message: "Please input your last name!",
+                    whitespace: true,
+                  },
+                  {
+                    min: 2,
+                    max: 50,
+                    message: "Last name must be between 2 and 50 characters",
+                  },
+                  {
+                    pattern: /^[a-zA-Z]+$/,
+                    message: "Last name must contain only letters",
+                  },
                 ]}
               >
                 <Input />
@@ -362,7 +417,10 @@ export default function RegisterPage() {
                 label="Date of Birth"
                 name="user_dob"
                 rules={[
-                  { required: true, message: "Please input your date of birth!" },
+                  {
+                    required: true,
+                    message: "Please input your date of birth!",
+                  },
                   {
                     validator: (_, value) => {
                       if (!value) return Promise.resolve();
@@ -370,17 +428,23 @@ export default function RegisterPage() {
                       const thirteenYearsAgo = new Date(
                         today.getFullYear() - 13,
                         today.getMonth(),
-                        today.getDate()
+                        today.getDate(),
                       );
                       if (value.valueOf() > thirteenYearsAgo.getTime()) {
-                        return Promise.reject(new Error("You must be at least 13 years old."));
+                        return Promise.reject(
+                          new Error("You must be at least 13 years old."),
+                        );
                       }
                       return Promise.resolve();
                     },
                   },
                 ]}
               >
-                <DatePicker disabledDate={(current) => current && current.valueOf() > Date.now()} />
+                <DatePicker
+                  disabledDate={(current) =>
+                    current && current.valueOf() > Date.now()
+                  }
+                />
               </Form.Item>
             </>
           )}
@@ -407,8 +471,14 @@ export default function RegisterPage() {
                 validateStatus={phoneError ? "error" : ""}
                 help={phoneError}
                 rules={[
-                  { required: true, message: "Please input your phone number!" },
-                  { pattern: /^\d{7,15}$/, message: "Phone number must be between 7 and 15 digits" },
+                  {
+                    required: true,
+                    message: "Please input your phone number!",
+                  },
+                  {
+                    pattern: /^\d{10,10}$/,
+                    message: "Phone number must be of 10 digits",
+                  },
                 ]}
               >
                 <Input
@@ -426,7 +496,8 @@ export default function RegisterPage() {
                   { min: 8, message: "Password must be at least 8 characters" },
                   {
                     pattern: /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/,
-                    message: "Password must contain an uppercase letter, a number, and a special character",
+                    message:
+                      "Password must contain an uppercase letter, a number, and a special character",
                   },
                 ]}
                 hasFeedback
@@ -446,7 +517,9 @@ export default function RegisterPage() {
                       if (!value || getFieldValue("user_password") === value) {
                         return Promise.resolve();
                       }
-                      return Promise.reject(new Error("Passwords do not match!"));
+                      return Promise.reject(
+                        new Error("Passwords do not match!"),
+                      );
                     },
                   }),
                 ]}
@@ -462,19 +535,19 @@ export default function RegisterPage() {
               <Form.Item
                 name="user_bio"
                 label="Bio"
-                rules={[{ max: 200, message: "Bio cannot exceed 200 characters" }]}
+                rules={[
+                  { max: 200, message: "Bio cannot exceed 200 characters" },
+                ]}
               >
-                <Input />
-              </Form.Item>
-
-              <Form.Item name="user_img" label="Image">
                 <Input />
               </Form.Item>
 
               <Form.Item
                 name="user_country"
                 label="Country"
-                rules={[{ required: true, message: "Please select your country!" }]}
+                rules={[
+                  { required: true, message: "Please select your country!" },
+                ]}
               >
                 <Select placeholder="Select your country">
                   <Option value="india">India</Option>
@@ -485,7 +558,13 @@ export default function RegisterPage() {
               <Form.Item
                 name="user_state"
                 label="State"
-                rules={[{ max: 200, message: "State cannot exceed 200 characters" }]}
+                rules={[
+                  {
+                    required: true,
+                    max: 200,
+                    message: "State cannot exceed 200 characters",
+                  },
+                ]}
               >
                 <Input />
               </Form.Item>
@@ -493,7 +572,13 @@ export default function RegisterPage() {
               <Form.Item
                 name="user_city"
                 label="City"
-                rules={[{ max: 200, message: "City cannot exceed 200 characters" }]}
+                rules={[
+                  {
+                    required: true,
+                    max: 200,
+                    message: "City cannot exceed 200 characters",
+                  },
+                ]}
               >
                 <Input />
               </Form.Item>
@@ -501,7 +586,13 @@ export default function RegisterPage() {
               <Form.Item
                 name="user_pincode"
                 label="Pincode"
-                rules={[{ pattern: /^\d{5,10}$/, message: "Pincode must be between 5 and 10 digits" }]}
+                rules={[
+                  {
+                    required: true,
+                    pattern: /^\d{6,6}$/,
+                    message: "Pincode must be of 6 digits",
+                  },
+                ]}
               >
                 <Input />
               </Form.Item>
@@ -509,7 +600,12 @@ export default function RegisterPage() {
               <Form.Item
                 name="user_landmark"
                 label="Landmark"
-                rules={[{ max: 200, message: "Landmark cannot exceed 200 characters" }]}
+                rules={[
+                  {
+                    max: 200,
+                    message: "Landmark cannot exceed 200 characters",
+                  },
+                ]}
               >
                 <Input />
               </Form.Item>
@@ -517,7 +613,13 @@ export default function RegisterPage() {
               <Form.Item
                 name="user_address"
                 label="Address"
-                rules={[{ max: 255, message: "Address cannot exceed 255 characters" }]}
+                rules={[
+                  {
+                    max: 255,
+                    required: true,
+                    message: "Address cannot exceed 255 characters",
+                  },
+                ]}
               >
                 <Input />
               </Form.Item>
@@ -530,7 +632,9 @@ export default function RegisterPage() {
                     validator: (_, value) =>
                       value
                         ? Promise.resolve()
-                        : Promise.reject(new Error("Should accept Terms & Conditions")),
+                        : Promise.reject(
+                            new Error("Should accept Terms & Conditions"),
+                          ),
                   },
                 ]}
                 {...tailFormItemLayout}
@@ -546,22 +650,38 @@ export default function RegisterPage() {
           {formCurrentStep === 4 && (
             <>
               <Form.Item
-  name="security_question"
-  label="Security Question"
-  rules={[{ required: true, message: "Please select a security question!" }]}
->
-  <Select
-    placeholder="Select a security question"
-    style={{ width: "100%" }}
-    dropdownStyle={{ minWidth: 500 }}
-  >
-    {SECURITY_QUESTIONS.map((q) => (
-      <Option key={q} value={q}>
-        {q}
-      </Option>
-    ))}
-  </Select>
-</Form.Item>
+                name="security_question"
+                label="Security Question"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please select a security question!",
+                  },
+                ]}
+              >
+                <Select placeholder="Select a security question">
+                  {SECURITY_QUESTIONS.map((q) => (
+                    <Option key={q} value={q}>
+                      {q}
+                    </Option>
+                  ))}
+                </Select>
+              </Form.Item>
+
+              <Form.Item
+                name="security_answer"
+                label="Your Answer"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please enter your answer!",
+                    whitespace: true,
+                  },
+                  { min: 2, message: "Answer must be at least 2 characters" },
+                ]}
+              >
+                <Input placeholder="Enter your answer" />
+              </Form.Item>
             </>
           )}
         </CustomCard>

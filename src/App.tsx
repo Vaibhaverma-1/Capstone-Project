@@ -27,6 +27,10 @@ function App() {
               <Routes>
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route
+                  path="/forgot-password"
+                  element={<ForgotPasswordPage />}
+                />
                 <Route element={<PrivateRoutes />}>
                   <Route path="assets" element={<Assets />} />
                   <Route
