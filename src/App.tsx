@@ -3,6 +3,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { AppContextProvider } from "./context/appContext";
 import NotFoundPage from "./utils/404";
 import LoginPage from "./components/Login";
+import { App as AntApp } from "antd";
 import ThemeProvider from "./theme/antdTheme";
 import PrivateRoutes from "./protected_routes/ProtectedRoutes";
 import RegisterPage from "./components/Register";
@@ -18,32 +19,35 @@ import MyRequests from "./components/MyRequests";
 
 function App() {
   return (
-    <div className="App">
-      <AppContextProvider>
-        <Router>
-          <ThemeProvider>
-            <Routes>
-              {/* ── Public routes ── */}
-              <Route path="/" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-
-              {/* ── Protected routes ── */}
-              <Route element={<PrivateRoutes />}>
-                <Route path="assets" element={<Assets />} />
-                <Route path="maintenance-orders" element={<MaintenanceOrders />} />
-                <Route path="work-instructions" element={<WorkInstructions />} />
-                <Route path="requests" element={<MyRequests />} />
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="profile" element={<Profile />} />
-              </Route>
-
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </ThemeProvider>
-        </Router>
-      </AppContextProvider>
-    </div>
+    <AntApp>
+      <div className="App">
+        <AppContextProvider>
+          <Router>
+            <ThemeProvider>
+              <Routes>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                <Route element={<PrivateRoutes />}>
+                  <Route path="assets" element={<Assets />} />
+                  <Route
+                    path="maintenance-orders"
+                    element={<MaintenanceOrders />}
+                  />
+                  <Route
+                    path="work-instructions"
+                    element={<WorkInstructions />}
+                  />
+                  <Route path="requests" element={<MyRequests />} />
+                  <Route path="dashboard" element={<Dashboard />} />
+                  <Route path="profile" element={<Profile />} />
+                </Route>
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </ThemeProvider>
+          </Router>
+        </AppContextProvider>
+      </div>
+    </AntApp>
   );
 }
 
