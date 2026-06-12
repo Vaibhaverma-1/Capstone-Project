@@ -1,8 +1,4 @@
 {
-    "success": true,
-    "user": {
-        "user_unique_id": "uuname1",
-        "user_password": "$2b$10$9wx3Ai01rrVYIEx9K3mLyeqwxf1AVQr6iVQ/3IfdKz0WWjPXFOzgi"
-    },
-    "sessionId": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InV1bmFtZTEiLCJpYXQiOjE3MjUxODYxNjUsImV4cCI6MTcyNTE4Nzk2NX0.ZXi7DFeWx11p94G1ivM-xqCfTgCE1p_49rJbYiJZfbM"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMjMiLCJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaWF0IjoxNzAwMDAwMDAwLCJleHAiOjk5OTk5OTk5OTl9.abc123",
+  "sessionId": "test-session-123"
 }
