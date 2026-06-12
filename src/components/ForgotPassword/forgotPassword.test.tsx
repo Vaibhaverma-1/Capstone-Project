@@ -1,4 +1,3 @@
-import "src/test/mocks/axiosMock";
 import "src/test/mocks/browserMocks";
 
 import { screen, waitFor } from "@testing-library/react";
