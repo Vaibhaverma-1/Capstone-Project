@@ -10,6 +10,6 @@ export const updateProfileAPI = async (data: {}) => {
     });
     return response.data;
   } catch (error) {
-    // throw new Error("Error fetching summary:", error);
+    throw new Error("Error updating profile");
   }
 };

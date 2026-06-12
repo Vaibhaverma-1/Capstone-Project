@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
+    "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@capacitor/android": "^7.2.0",
     "@capacitor/cli": "^7.2.0",
     "@capacitor/core": "^7.2.0",
@@ -19,15 +20,15 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.93",
-    "@types/react": "^18.2.73",
-    "@types/react-dom": "^18.2.23",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
     "ajv": "^8.17.1",
     "antd": "^5.29.3",
     "axios": "^1.6.8",
     "crypto-js": "^4.2.0",
     "formik": "^2.4.9",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-router-dom": "^6.22.3",
     "react-scripts": "^5.0.1",
     "styled-components": "^6.1.8",
@@ -65,8 +66,8 @@
     "@types/yup": "^0.29.14"
   },
   "overrides": {
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "@google/model-viewer": {
       "three": "^0.175.0"
     }

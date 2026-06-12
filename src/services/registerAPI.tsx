@@ -7,7 +7,7 @@ interface RegisterFormData {
   user_middle_name?: string;
   user_last_name?: string;
   user_email?: string;
-  user_password?: string;       // plain text — backend hashes with bcrypt/argon2
+  user_password?: string; // plain text — backend hashes with bcrypt/argon2
   prefix?: string;
   user_phone?: string;
   user_dob?: any;
@@ -19,7 +19,7 @@ interface RegisterFormData {
   user_city?: string;
   user_pincode?: string;
   user_landmark?: string;
-  user_address?: string;        // fixed: string not string[]
+  user_address?: string; // fixed: string not string[]
   user_agreement?: boolean;
   user_role?: string;
   user_verified?: string;

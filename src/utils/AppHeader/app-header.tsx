@@ -7,12 +7,12 @@ import {
   MenuOutlined,
   OpenAIOutlined,
 } from "@ant-design/icons";
-import { Header } from "antd/es/layout/layout";
-import { Button, Switch } from "antd";
+import { Button, Switch, Layout, Avatar } from "antd";
 import { useTheme } from "../../../src/theme/antdTheme";
-import { Avatar } from "antd";
 import { useAppContext } from "src/context/appContext";
 import CustomPopover from "src/asserts/UI_components/PooverComponent/popver.styled";
+
+const { Header } = Layout;
 
 // TODO: Required?
 const size = {

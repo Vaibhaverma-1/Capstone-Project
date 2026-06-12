@@ -7,8 +7,8 @@ interface LoginFormData {
 }
 
 interface LoginResponseData {
-  token: string;       // JWT returned by the backend on successful login
-  sessionId?: string;  // kept for backwards compatibility if backend still sends it
+  token: string; // JWT returned by the backend on successful login
+  sessionId?: string; // kept for backwards compatibility if backend still sends it
 }
 
 export const loginAPI = async (formData: LoginFormData) => {
@@ -16,7 +16,7 @@ export const loginAPI = async (formData: LoginFormData) => {
     const response = await apiClient<LoginResponseData>(
       "post",
       Endpoints.LOGIN,
-      formData
+      formData,
     );
     return response;
   } catch (error) {
