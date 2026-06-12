@@ -8,9 +8,18 @@ import { validateUsername } from "./validateUsernameAPI";
 import { validateEmail } from "./validateEmailAPI";
 import { validatePhone } from "./validatePhoneAPI";
 import { updateProfileAPI } from "./updateProfileAPI";
+import { tokenUtils } from "src/utils/tokenUtils";
 
 jest.mock("src/api/apiClient", () => ({
   apiClient: jest.fn(),
+}));
+
+jest.mock("src/utils/tokenUtils", () => ({
+  tokenUtils: {
+    getToken: jest.fn(),
+    isTokenValid: jest.fn(),
+    removeToken: jest.fn(),
+  },
 }));
 
 beforeEach(() => {
@@ -44,15 +53,18 @@ test("loginAPI throws an error on failure", async () => {
     user_unique_id: "jai123",
     user_password: "password",
   });
-  await expect(response).rejects.toThrow("Error logging in");
+  await expect(response).rejects.toThrow("Network Error");
 });
 
 test("getSummaryAPI calls summary endpoint with auth header", async () => {
+  (tokenUtils.getToken as jest.Mock).mockReturnValue("session-1");
+  (tokenUtils.isTokenValid as jest.Mock).mockReturnValue(true);
+
   (apiClient as jest.Mock).mockResolvedValue({
     data: { userSummary: {} },
   });
 
-  const response = await getSummaryAPI("session-1");
+  const response = await getSummaryAPI();
 
   expect(apiClient).toHaveBeenCalledWith(
     "get",
@@ -68,10 +80,13 @@ test("getSummaryAPI calls summary endpoint with auth header", async () => {
 });
 
 test("getSummaryAPI throws an error on failure", async () => {
+  (tokenUtils.getToken as jest.Mock).mockReturnValue("session-1");
+  (tokenUtils.isTokenValid as jest.Mock).mockReturnValue(true);
+
   (apiClient as jest.Mock).mockRejectedValue(new Error("Network Error"));
 
-  const response = getSummaryAPI("session-1");
-  await expect(response).rejects.toThrow("Error fetching summary");
+  const response = getSummaryAPI();
+  await expect(response).rejects.toThrow("Network Error");
 });
 
 test("registerAPI calls register endpoint", async () => {
@@ -101,7 +116,7 @@ test("registerAPI throws an error on failure", async () => {
   };
 
   const response = registerAPI(formData);
-  await expect(response).rejects.toThrow("Error registering user");
+  await expect(response).rejects.toThrow("Network Error");
 });
 
 test("validateUsername calls username validation endpoint", async () => {
@@ -111,10 +126,12 @@ test("validateUsername calls username validation endpoint", async () => {
 
   const response = await validateUsername("jai123");
 
-  expect(apiClient).toHaveBeenCalledWith(
-    "get",
-    `${Endpoints.VALIDATE_USERNAME}?user_unique_id=jai123`,
-  );
+  const isDevEnv = process.env.REACT_APP_ENVIRONMENT === "development";
+  const expectedUrl = isDevEnv
+    ? Endpoints.VALIDATE_USERNAME
+    : `${Endpoints.VALIDATE_USERNAME}?user_unique_id=jai123`;
+
+  expect(apiClient).toHaveBeenCalledWith("get", expectedUrl);
 
   expect(response).toEqual({
     success: true,
@@ -128,10 +145,12 @@ test("validateEmail calls email validation endpoint on success", async () => {
 
   const response = await validateEmail("test@example.com");
 
-  expect(apiClient).toHaveBeenCalledWith(
-    "get",
-    `${Endpoints.VALIDATE_EMAIL}?user_email=test%40example.com`,
-  );
+  const isDevEnv = process.env.REACT_APP_ENVIRONMENT === "development";
+  const expectedUrl = isDevEnv
+    ? Endpoints.VALIDATE_EMAIL
+    : `${Endpoints.VALIDATE_EMAIL}?user_email=test%40example.com`;
+
+  expect(apiClient).toHaveBeenCalledWith("get", expectedUrl);
   expect(response).toEqual({
     success: true,
     emailValidation: { exists: false },
@@ -152,10 +171,12 @@ test("validatePhone calls phone validation endpoint on success", async () => {
 
   const response = await validatePhone("1234567890");
 
-  expect(apiClient).toHaveBeenCalledWith(
-    "get",
-    `${Endpoints.VALIDATE_PHONE}?user_unique_id=1234567890`,
-  );
+  const isDevEnv = process.env.REACT_APP_ENVIRONMENT === "development";
+  const expectedUrl = isDevEnv
+    ? Endpoints.VALIDATE_PHONE
+    : `${Endpoints.VALIDATE_PHONE}?user_phone=1234567890`;
+
+  expect(apiClient).toHaveBeenCalledWith("get", expectedUrl);
   expect(response).toEqual({
     success: true,
     phoneValidation: { exists: false },

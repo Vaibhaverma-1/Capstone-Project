@@ -46,11 +46,11 @@ test("renders Step 1 fields on initial load", () => {
   expect(backButton).toBeInTheDocument();
 });
 
-test("navigates back to login page on clicking back button", () => {
+test("navigates back to login page on clicking back button", async () => {
   renderWithProviders(<RegisterPage />);
 
   const backButton = screen.getByRole("button", { name: /back to login/i });
-  userEvent.click(backButton);
+  await userEvent.click(backButton);
 
   expect(mockNavigate).toHaveBeenCalledWith("/");
 });
@@ -59,7 +59,7 @@ test("does not transition to Step 2 when clicking Next with empty fields", async
   renderWithProviders(<RegisterPage />);
 
   const nextButton = screen.getByRole("button", { name: /next/i });
-  userEvent.click(nextButton);
+  await userEvent.click(nextButton);
 
   await waitFor(() => {
     const emailInput = screen.queryByLabelText(/e-mail/i);
@@ -79,8 +79,8 @@ test("calls username validation API on blur", async () => {
   renderWithProviders(<RegisterPage />);
 
   const usernameInput = screen.getByLabelText(/user name/i);
-  userEvent.type(usernameInput, "jai123");
-  userEvent.tab();
+  await userEvent.type(usernameInput, "jai123");
+  await userEvent.tab();
 
   await waitFor(() => {
     expect(validateUsername).toHaveBeenCalledWith("jai123");

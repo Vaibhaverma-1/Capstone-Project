@@ -7,8 +7,8 @@ interface LoginFormData {
 }
 
 interface LoginResponseData {
-  token: string;       // JWT returned by the backend on successful login
-  sessionId?: string;  // kept for backwards compatibility if backend still sends it
+  token: string; // JWT returned by the backend on successful login
+  sessionId?: string; // kept for backwards compatibility if backend still sends it
 }
 
 export const loginAPI = async (formData: LoginFormData) => {
@@ -16,17 +16,11 @@ export const loginAPI = async (formData: LoginFormData) => {
     const response = await apiClient<LoginResponseData>(
       "post",
       Endpoints.LOGIN,
-      formData
+      formData,
     );
     return response;
   } catch (error) {
-<<<<<<< HEAD
-    //Need to add global notification for errors.  TODO
-    console.log("----", error);
-    throw new Error("Error logging in");
-=======
     console.error("Login error:", error);
     throw error; // re-throw so the Login component catch block runs
->>>>>>> origin/main
   }
 };
