@@ -19,7 +19,6 @@ jest.mock("src/services/validateUsernameAPI", () => ({
 
 beforeEach(() => {
   jest.clearAllMocks();
-
   (validateUsername as jest.Mock).mockResolvedValue({
     success: true,
     usernameValidation: { exists: false },

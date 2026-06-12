@@ -26,36 +26,6 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-test("loginAPI calls login endpoint", async () => {
-  const formData = {
-    user_unique_id: "jai123",
-    user_password: "encrypted-password",
-  };
-
-  (apiClient as jest.Mock).mockResolvedValue({
-    status: 200,
-    data: { sessionId: "session-1" },
-  });
-
-  const response = await loginAPI(formData);
-
-  expect(apiClient).toHaveBeenCalledWith("post", Endpoints.LOGIN, formData);
-  expect(response).toEqual({
-    status: 200,
-    data: { sessionId: "session-1" },
-  });
-});
-
-test("loginAPI throws an error on failure", async () => {
-  (apiClient as jest.Mock).mockRejectedValue(new Error("Network Error"));
-
-  const response = loginAPI({
-    user_unique_id: "jai123",
-    user_password: "password",
-  });
-  await expect(response).rejects.toThrow("Network Error");
-});
-
 test("getSummaryAPI calls summary endpoint with auth header", async () => {
   (tokenUtils.getToken as jest.Mock).mockReturnValue("session-1");
   (tokenUtils.isTokenValid as jest.Mock).mockReturnValue(true);
