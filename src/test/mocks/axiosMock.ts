@@ -19,3 +19,6 @@ jest.mock("axios", () => ({
   },
   create: jest.fn(() => mockAxiosInstance),
 }));
+
+export {};
+

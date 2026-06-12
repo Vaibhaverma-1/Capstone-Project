@@ -18,6 +18,7 @@ import { useAppContext } from "./context/appContext";
 import { UserSummary } from "./interfaces/summaryInterface";
 import { allAllowedServices } from "./utils/constants";
 import { useLocation, useNavigate } from "react-router-dom";
+import OfflineBanner from "./components/OfflineBanner";
 
 const { Content, Footer, Sider } = Layout;
 
@@ -206,6 +207,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         )}
         <Layout>
           <Content style={{ margin: "0 16px" }}>
+            <OfflineBanner />
             {/* TODO dynamic breadcrumb */}
             {/* <Breadcrumb style={{ margin: "16px 0" }}>
               <Breadcrumb.Item>Services</Breadcrumb.Item>
